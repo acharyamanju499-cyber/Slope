@@ -1,0 +1,207 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); color: var(--color-text-primary); }
+  .wrap { padding: 1.5rem 0; max-width: 700px; }
+  .title { font-size: 18px; font-weight: 500; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 1.5rem; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 13px; color: var(--color-text-secondary); font-weight: 500; }
+  select { width: 100%; }
+  .btn-row { display: flex; gap: 10px; margin-bottom: 1.5rem; }
+  .btn-primary { background: var(--color-text-primary); color: var(--color-background-primary); border: none; padding: 9px 20px; border-radius: var(--border-radius-md); font-size: 14px; font-weight: 500; cursor: pointer; }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-reset { background: transparent; color: var(--color-text-secondary); border: 0.5px solid var(--color-border-secondary); padding: 9px 16px; border-radius: var(--border-radius-md); font-size: 14px; cursor: pointer; }
+  .result-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem; margin-bottom: 1rem; }
+  .result-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 1rem; }
+  .result-icon { width: 40px; height: 40px; border-radius: var(--border-radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 20px; }
+  .result-icon.erosion { background: #FAEEDA; color: #633806; }
+  .result-icon.slump { background: #FAECE7; color: #4A1B0C; }
+  .result-icon.debris { background: #FCEBEB; color: #501313; }
+  .result-icon.ok { background: #EAF3DE; color: #173404; }
+  .result-title { font-size: 16px; font-weight: 500; margin-bottom: 3px; }
+  .result-meta { font-size: 12px; color: var(--color-text-secondary); }
+  .section-label { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; }
+  .badge-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+  .badge { font-size: 12px; padding: 3px 10px; border-radius: 20px; }
+  .badge-problem { background: #FAEEDA; color: #633806; }
+  .badge-func { background: #E6F1FB; color: #0C447C; }
+  .tech-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .tech-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); font-size: 14px; }
+  .tech-num { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); min-width: 20px; margin-top: 1px; }
+  .divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 1rem 0; }
+  .special-banner { background: #FCEBEB; border: 0.5px solid #F7C1C1; border-radius: var(--border-radius-md); padding: 10px 14px; font-size: 13px; color: #791F1F; margin-bottom: 10px; display: flex; gap: 8px; align-items: flex-start; }
+  .empty { text-align: center; padding: 2.5rem 1rem; color: var(--color-text-secondary); font-size: 14px; }
+  .input-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  @media (max-width: 500px) { .form-grid, .input-row { grid-template-columns: 1fr; } }
+</style>
+
+<div class="wrap">
+  <h2 class="title">Slope bioengineering mitigation advisor</h2>
+  <p class="subtitle">Enter site parameters to determine appropriate slope stabilisation techniques.</p>
+
+  <div class="form-grid">
+    <div class="form-group">
+      <label>Slope angle</label>
+      <select id="angle">
+        <option value="">— select —</option>
+        <option value="gt45">&gt; 45°</option>
+        <option value="30to45">30 – 45°</option>
+        <option value="lt30">&lt; 30°</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Slope length</label>
+      <select id="length">
+        <option value="">— select —</option>
+        <option value="gt15">&gt; 15 m</option>
+        <option value="eq15">≤ 15 m</option>
+        <option value="base">Base of slope</option>
+        <option value="any">Any / not applicable</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Material drainage</label>
+      <select id="drainage">
+        <option value="">— select —</option>
+        <option value="good">Good</option>
+        <option value="poor">Poor</option>
+        <option value="any">Any</option>
+        <option value="rocky">Rocky material</option>
+        <option value="loosedsand">Loose sand</option>
+        <option value="ratomato">Rato mato (red soil)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Site moisture</label>
+      <select id="moisture">
+        <option value="">— select —</option>
+        <option value="damp">Damp</option>
+        <option value="dry">Dry</option>
+        <option value="any">Any</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Special condition</label>
+      <select id="special">
+        <option value="none">None</option>
+        <option value="gully45">Gully ≥ 45° (minor erosion)</option>
+        <option value="gullyMajor">Gully — major erosion</option>
+        <option value="deep">Deep-seated planar / shear failure</option>
+        <option value="rocky30">Rocky material, angle &gt; 30° (debris fall)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn-primary" onclick="analyse()"><i class="ti ti-search" aria-hidden="true"></i> Determine mitigation</button>
+    <button class="btn-reset" onclick="resetAll()">Reset</button>
+  </div>
+
+  <div id="output"><div class="empty"><i class="ti ti-mountain" style="font-size:32px; display:block; margin-bottom:8px;" aria-hidden="true"></i>Fill in the parameters above and click "Determine mitigation"</div></div>
+</div>
+
+<script>
+const DB = [
+  { id:'A1', angle:'gt45', length:'gt15', drainage:'good', moisture:'damp', problems:['Erosion','Slumping'], funcs:['Armour','Reinforce','Drain'], techs:['Diagonal grass lines'] },
+  { id:'A2', angle:'gt45', length:'gt15', drainage:'good', moisture:'dry', problems:['Erosion'], funcs:['Armour','Reinforce'], techs:['Counter grass lines'] },
+  { id:'A3', angle:'gt45', length:'gt15', drainage:'poor', moisture:'damp', problems:['Slumping','Erosion'], funcs:['Drain','Armour','Reinforce'], techs:['Downslope grass lines and vegetated stone pitched rills','Chevron grass lines and vegetated stone pitched rills'] },
+  { id:'A4', angle:'gt45', length:'gt15', drainage:'poor', moisture:'dry', problems:['Erosion','Slumping'], funcs:['Armour','Reinforce','Drain'], techs:['Diagonal grass line'] },
+  { id:'A5', angle:'gt45', length:'eq15', drainage:'good', moisture:'any', problems:['Erosion'], funcs:['Armour','Reinforce'], techs:['Diagonal grass lines','Jute netting and randomly planted grass'] },
+  { id:'A6', angle:'gt45', length:'eq15', drainage:'poor', moisture:'damp', problems:['Slumping','Erosion'], funcs:['Drain','Armour','Reinforce'], techs:['Downslope grass lines','Diagonal grass lines'] },
+  { id:'A7', angle:'gt45', length:'eq15', drainage:'poor', moisture:'dry', problems:['Erosion','Slumping'], funcs:['Armour','Reinforce','Drain'], techs:['Jute netting and random grass plantation','Contour grass lines','Diagonal grass lines'] },
+  { id:'B1', angle:'30to45', length:'gt15', drainage:'good', moisture:'any', problems:['Erosion'], funcs:['Armour','Reinforce','Catch'], techs:['Horizontal bolster cylinders and shrub/tree planting','Downslope grass lines and vegetated stone pitched rills','Site grass seeding, mulch and wide mesh jute netting'] },
+  { id:'B2', angle:'30to45', length:'gt15', drainage:'poor', moisture:'any', problems:['Slumping','Erosion'], funcs:['Drain','Armour','Reinforce'], techs:['Horizontal bolster cylinders and shrub/tree planting','Alternative drainage system and shrub/tree planting'] },
+  { id:'B3', angle:'30to45', length:'eq15', drainage:'good', moisture:'any', problems:['Erosion'], funcs:['Armour','Reinforce','Catch'], techs:['Brush layers of woody cuttings','Contour grass lines','Contour fascines','Palisades of woody cuttings','Site grass seeding, mulch and wide mesh jute netting'] },
+  { id:'B4', angle:'30to45', length:'eq15', drainage:'poor', moisture:'any', problems:['Slumping','Erosion'], funcs:['Drain','Armour','Reinforce'], techs:['Diagonal grass lines','Herringbone fascines and shrub/tree planting','Diagonal brush layers','Herringbone bolster cylinders and shrub/tree planting','Alternative drainage system and shrub/tree planting'] },
+  { id:'C1', angle:'lt30', length:'any', drainage:'good', moisture:'any', problems:['Erosion'], funcs:['Armour','Catch'], techs:['Site seeding or grass and shrub/tree planting','Shrub/tree planting'] },
+  { id:'C2', angle:'lt30', length:'any', drainage:'poor', moisture:'any', problems:['Slumping','Erosion'], funcs:['Drain','Armour','Catch'], techs:['Diagonal lines of grass and shrubs/trees','Shrub/tree planting'] },
+  { id:'C3', angle:'lt30', length:'eq15', drainage:'any', moisture:'any', problems:['Erosion'], funcs:['Armour','Catch'], techs:['Turfing and shrub/tree planting'] },
+  { id:'D1', angle:'any', length:'base', drainage:'any', moisture:'any', problems:['Planar sliding / shear failure (shallow)'], funcs:['Support','Anchor','Catch'], techs:['Large bamboo planting','Large tree planting'] },
+  { id:'SP1', special:'loosedsand', drainage:'good', moisture:'any', problems:['Erosion'], funcs:['Armour'], techs:['Jute netting and randomly planted grass'] },
+  { id:'SP2', special:'ratomato', drainage:'poor', moisture:'any', problems:['Slumping','Erosion'], funcs:['Drain','Armour'], techs:['Diagonal lines of grass and shrubs/trees'] },
+  { id:'SP3', special:'gully45', problems:['Erosion'], funcs:['Armour','Reinforce','Catch'], techs:['Large bamboo planting','Live check dams','Vegetated stone pitching'] },
+  { id:'SP4', special:'deep', problems:['Planar sliding / shear failure (deep-seated)'], funcs:['Reinforce','Anchor','Support'], techs:['Earthwork: removal, slope flattening, benching','Soil nailing, anchor and retaining wall'] },
+  { id:'SP5', special:'rocky30', problems:['Debris fall'], funcs:['Reinforce','Anchor'], techs:['Grouting and rock netting','Rock anchors'] },
+  { id:'SP6', special:'gullyMajor', problems:['Erosion (major)'], funcs:['Armour','Reinforce','Catch'], techs:['Vegetated stone pitching','Check dams'] },
+];
+
+function matches(rec, angle, length, drainage, moisture, special){
+  if(special && special !== 'none'){
+    return rec.special === special;
+  }
+  if(rec.special) return false;
+  const aOk = rec.angle === 'any' || rec.angle === angle;
+  const lOk = rec.length === 'any' || rec.length === length;
+  const dOk = rec.drainage === 'any' || rec.drainage === drainage;
+  const mOk = rec.moisture === 'any' || rec.moisture === moisture;
+  return aOk && lOk && dOk && mOk;
+}
+
+function problemIcon(problems){
+  const p = problems.join(' ').toLowerCase();
+  if(p.includes('debris')) return {cls:'debris', icon:'ti-rock'};
+  if(p.includes('slump')) return {cls:'slump', icon:'ti-layers-subtract'};
+  if(p.includes('deep')) return {cls:'debris', icon:'ti-stack-2'};
+  if(p.includes('erosion')) return {cls:'erosion', icon:'ti-wave-saw-tool'};
+  return {cls:'ok', icon:'ti-plant-2'};
+}
+
+function analyse(){
+  const angle = document.getElementById('angle').value;
+  const length = document.getElementById('length').value;
+  const drainage = document.getElementById('drainage').value;
+  const moisture = document.getElementById('moisture').value;
+  const special = document.getElementById('special').value;
+
+  const out = document.getElementById('output');
+
+  const sp = special !== 'none';
+  if(!sp && (!angle || !length || !drainage || !moisture)){
+    out.innerHTML = '<div class="special-banner"><i class="ti ti-alert-circle" aria-hidden="true"></i> Please fill in all parameters, or select a special condition.</div>';
+    return;
+  }
+
+  const results = DB.filter(r => matches(r, angle, length, drainage, moisture, sp ? special : null));
+
+  if(!results.length){
+    out.innerHTML = '<div class="special-banner"><i class="ti ti-alert-circle" aria-hidden="true"></i> No exact match found for these parameters. Please review inputs or consult a qualified geotechnical engineer.</div>';
+    return;
+  }
+
+  let html = '';
+  results.forEach(r => {
+    const pi = problemIcon(r.problems);
+    const techsHtml = r.techs.map((t,i) => `<li class="tech-item"><span class="tech-num">${i+1}.</span><span>${t}</span></li>`).join('');
+    const probBadges = r.problems.map(p => `<span class="badge badge-problem">${p}</span>`).join('');
+    const funcBadges = r.funcs.map(f => `<span class="badge badge-func">${f}</span>`).join('');
+    html += `
+    <div class="result-card">
+      <div class="result-header">
+        <div class="result-icon ${pi.cls}"><i class="ti ${pi.icon}" aria-hidden="true"></i></div>
+        <div>
+          <div class="result-title">${r.problems.join(' & ')}</div>
+          <div class="result-meta">Reference: ${r.id}</div>
+        </div>
+      </div>
+      <div class="section-label">Problems identified</div>
+      <div class="badge-row">${probBadges}</div>
+      <div class="section-label">Functions required</div>
+      <div class="badge-row">${funcBadges}</div>
+      <hr class="divider">
+      <div class="section-label">Recommended techniques</div>
+      <ul class="tech-list">${techsHtml}</ul>
+    </div>`;
+  });
+
+  html += `<p style="font-size:12px; color:var(--color-text-secondary); margin-top:8px;"><i class="ti ti-info-circle" aria-hidden="true"></i> These recommendations are based on the Bioengineering for Slope Management framework. Site-specific assessment by a qualified geotechnical engineer is always required.</p>`;
+
+  out.innerHTML = html;
+}
+
+function resetAll(){
+  ['angle','length','drainage','moisture','special'].forEach(id => document.getElementById(id).value = id === 'special' ? 'none' : '');
+  document.getElementById('output').innerHTML = '<div class="empty"><i class="ti ti-mountain" style="font-size:32px; display:block; margin-bottom:8px;" aria-hidden="true"></i>Fill in the parameters above and click "Determine mitigation"</div>';
+}
+</script>
